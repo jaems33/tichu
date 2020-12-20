@@ -1,0 +1,29 @@
+.card {
+  width: 100px;
+  height: 140px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  .card__info:first-child {
+    justify-content: normal;
+  }
+  .card__info:last-child {
+    text-align: right;
+  }
+}
+
+.card__info__content {
+  display: block;
+  font-size: 16px;
+}
+
+.hand {
+  display: flex;
+}
+
+.hand .card {
+  margin-right: 10px;
+}
