@@ -20,8 +20,6 @@ const Card: React.FunctionComponent<ICard & IClickable & Customizable> = ({value
       if (divRef !== null && divRef.current !== null){
         divRef.current.classList.toggle('selected');
       }
-
-      //divElement.classList.add('selected');
       callback();
     }
   }

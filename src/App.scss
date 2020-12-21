@@ -1,11 +1,13 @@
 body {
   padding: 20px;
+  background-color: #cbbcb1;
 }
 
 .card {
   width: 100px;
   height: 140px;
-  border: 1px solid #ccc;
+  border: 2px solid #FFF;
+  background-color: #FFF;
   border-radius: 10px;
   padding: 20px;
   display: flex;
@@ -22,6 +24,7 @@ body {
 .card--selectable {
   &:hover {
     cursor: pointer;
+    border: 2px solid #433d3c;
   }
 }
 
@@ -39,5 +42,23 @@ body {
 }
 
 .hand .card.selected {
-  margin-top: -20px;
+  margin-top: -40px;
+}
+
+.floating {
+  position: fixed;
+  top: 80px;
+  left: 80px;
+}
+
+.button {
+  border: 0px;
+  background-color: #ff4646;
+  color: #FFFFFF;
+  border-radius: 8px;
+  padding: 12px 20px;
+  outline: 0;
+  &:hover {
+    cursor: pointer;
+  }
 }

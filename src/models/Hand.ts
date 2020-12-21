@@ -12,8 +12,8 @@ function compare(card_a: ICard, card_b: ICard){
 
 class Hand {
   cards: Array<ICard>;
-  constructor(){
-    this.cards = [];
+  constructor(cards?: Array<ICard>){
+    this.cards = cards != null ? cards : [];
   }
   addCard(card: ICard){
     this.cards.push(card);
@@ -23,11 +23,17 @@ class Hand {
       return card.suit !== cardToRemove.suit && card.value !== cardToRemove.value;
     })
   }
-  getHand(){
+  getCards(){
     return this.cards;
   }
   sort(){
     this.cards.sort(compare);
+  }
+  subtract(hand: Hand){
+    let cardsToRemove = new Set(hand.getCards());
+    this.cards = this.cards.filter((card: ICard) => {
+      return !cardsToRemove.has(card);
+    })
   }
 }
 

@@ -5,21 +5,24 @@ import Card from '../interfaces/Card';
 class PlayerHand {
   player: Player;
   hand: Hand;
-  constructor(player: Player){
+  constructor(player: Player, hand?: Hand){
     this.player = player;
-    this.hand = new Hand();
+    this.hand = hand != null ? hand : new Hand();
   }
   addCard(card: Card){
     this.hand.addCard(card);
   }
   getHand(){
-    return this.hand.getHand();
+    return this.hand;
   }
   sortHand(){
     this.hand.sort();
   }
   getPlayer(){
     return this.player;
+  }
+  removeCards(hand: Hand){
+    this.hand.subtract(hand);
   }
 }
 
