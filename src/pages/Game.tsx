@@ -20,10 +20,14 @@ const Game: React.FunctionComponent<any> = ({players}) => {
 
   const deck = new Deck();
   dealHands(playerHands, deck);
+  
+  for (let hand of playerHands){
+    hand.sortHand();
+  }
 
-  console.log(playerHands);
-
-  return(<Board playerHands={playerHands} />)
+  return(
+    <Board playerHands={playerHands} />
+  )
 }
 
 function dealHands(playerHands: Array<PlayerHand>, deck: Deck){

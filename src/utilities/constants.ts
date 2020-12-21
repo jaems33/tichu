@@ -16,6 +16,15 @@ export const DECK_SIZE = 56;
 export const MIN_VALUE = 2;
 export const MAX_VALUE = 14;
 
+export const JACK_VALUE = 11;
+export const JACK_NAME = "JACK";
+
+export const QUEEN_VALUE = 12;
+export const QUEEN_NAME = "QUEEN";
+
+export const KING_VALUE = 13;
+export const KING_NAME = "KING";
+
 export const HEART = "HEART";
 export const DIAMOND = "DIAMOND";
 export const SPADE = "SPADE";

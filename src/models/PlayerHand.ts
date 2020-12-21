@@ -15,6 +15,12 @@ class PlayerHand {
   getHand(){
     return this.hand.getHand();
   }
+  sortHand(){
+    this.hand.sort();
+  }
+  getPlayer(){
+    return this.player;
+  }
 }
 
 export default PlayerHand;

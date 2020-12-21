@@ -6,5 +6,9 @@ export default class Player {
   constructor(name: string){
     this.name = name;
     this.id = uuidv4();
+    this.getName = this.getName.bind(this);
+  }
+  getName(){
+    return this.name;
   }
 }

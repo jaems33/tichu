@@ -1,3 +1,7 @@
+body {
+  padding: 20px;
+}
+
 .card {
   width: 100px;
   height: 140px;
@@ -15,6 +19,12 @@
   }
 }
 
+.card--selectable {
+  &:hover {
+    cursor: pointer;
+  }
+}
+
 .card__info__content {
   display: block;
   font-size: 16px;
@@ -26,4 +36,8 @@
 
 .hand .card {
   margin-right: 10px;
+}
+
+.hand .card.selected {
+  margin-top: -20px;
 }

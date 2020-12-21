@@ -1,13 +1,13 @@
-import React from 'react';
+import React, {useState} from 'react';
 import Card from './Card';
 
 const SelectableCard: React.FunctionComponent<any> = ({callback, ...props}) => {
 
   const handleClick = () => {
-    callback(props.value, props.suit);
+    callback();
   }
 
-  return (<Card callback={handleClick} {...props} />)
+  return (<Card classNames='card--selectable' callback={handleClick} {...props} />)
 }
 
 export default SelectableCard;
