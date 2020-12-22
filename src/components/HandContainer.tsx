@@ -3,6 +3,7 @@ import PlayerHand from '../models/PlayerHand';
 import SelectableCards from './SelectableCards';
 import Card from '../interfaces/Card';
 import Hand from '../models/Hand';
+import TurnControls from './TurnControls'
 
 interface IHandContainer {
   playerHand: PlayerHand;
@@ -29,7 +30,7 @@ const HandContainer: React.FunctionComponent<IHandContainer> = ({playerHand, add
     }
   }
 
-  const submitTrick = () => {
+  const submitHand = () => {
     const hand = new Hand(Array.from(selected));
     const playerHandToSubmit = new PlayerHand(playerHand.getPlayer(), hand);
     const response = addHandToTrick(playerHandToSubmit);
@@ -46,9 +47,7 @@ const HandContainer: React.FunctionComponent<IHandContainer> = ({playerHand, add
   return (
     <div>
       <h3>{playerName}</h3>
-      {
-        selected.size > 0 && <HandControls callback={submitTrick} />
-      }
+      <TurnControls submitHand={submitHand} />
       <SelectableCards cards={playerHand.getHand().getCards()} callback={handler} />
     </div>
   )

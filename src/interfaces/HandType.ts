@@ -1,7 +1,7 @@
 enum HandType {
   Single,
   Pair,
-  TwoPairs,
+  Stairs,
   ThreeOfAKind,
   FullHouse,
   Run

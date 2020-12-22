@@ -14,7 +14,6 @@ const defaultState = {
 }
 
 function trickReducer(state = defaultState, action: Action){
-  console.log('Next turn in reducer', state);
   switch(action.type) {
     case NEXT_TURN: {
       return {

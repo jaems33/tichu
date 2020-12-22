@@ -5,7 +5,7 @@ import HandType from '../interfaces/HandType';
 const handTypes = [
   HandType.Single,
   HandType.Pair,
-  HandType.TwoPairs,
+  HandType.Stairs,
   HandType.ThreeOfAKind,
   HandType.FullHouse,
   HandType.Run,

@@ -2,6 +2,7 @@ import Hand from './Hand';
 import HandType from '../interfaces/HandType';
 import PlayerHand from '../models/PlayerHand';
 import * as Validity from '../utilities/validity';
+import Card from '../interfaces/Card';
 
 class Trick {
   playedHands: Array<PlayerHand>;
@@ -35,6 +36,12 @@ class Trick {
   }
   getLastHandPlayed(){
     return this.isEmpty() ? null : this.playedHands[this.playedHands.length-1];
+  }
+  flattenToHand(){
+    const output = this.playedHands.reduce((acc: Array<Card> , playerHand: PlayerHand) => {
+      return playerHand.getHand().getCards();
+    }, [] as Array<Card>);
+    return output;
   }
 }
 
