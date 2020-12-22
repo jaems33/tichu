@@ -2,7 +2,7 @@ import React, {useRef} from 'react';
 import ICard from '../interfaces/Card';
 import {valueToString, abbreviateSuit} from '../utilities/string'
 
-export interface IClickable {
+interface IClickable {
   callback?: Function;
 }
 

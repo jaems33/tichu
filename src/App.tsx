@@ -2,6 +2,8 @@ import React from 'react';
 import './App.scss';
 import Game from './pages/Game';
 import Player from './models/Player';
+import { Provider } from 'react-redux';
+import store from './redux/store';
 
 function App() {
 
@@ -9,7 +11,9 @@ function App() {
 
   return (
     <div className="App">
-      <Game players={players} />
+      <Provider store={store}>
+        <Game players={players} />
+      </Provider>
     </div>
   );
 }

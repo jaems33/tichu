@@ -6,13 +6,19 @@ import * as Validity from '../utilities/validity';
 import ICard from '../interfaces/Card';
 import Cards from '../components/Cards';
 
+import {connect} from 'react-redux';
+
+
 interface IBoard {
   playerHands: Array<PlayerHand> 
 }
 
 const trick = new Trick();
 
-const Board: React.FunctionComponent<IBoard> = ({playerHands}) => {
+const Board: React.FunctionComponent<IBoard> = ({playerHands, ...props}) => {
+
+  console.log('Props:', props);
+  const {turn, dispatch} = props as any;
 
   const [lastPlayed, setLastPlayed] = useState([] as ICard[]);
 
@@ -22,6 +28,7 @@ const Board: React.FunctionComponent<IBoard> = ({playerHands}) => {
     if (trick.isEmpty() && Validity.checkFirstMove(cards)){
       trick.addPlayerHand(playerHand);
       setLastPlayed(playerHand.getHand().getCards());
+      dispatch({ type: 'NEXT_TURN'});
       return true;
     } else {
       const handType = trick.getHandType();
@@ -32,6 +39,7 @@ const Board: React.FunctionComponent<IBoard> = ({playerHands}) => {
         if (lastCardsPlayed != null && Validity.isGreaterThan(cards, lastCardsPlayed, handType)){
           trick.addPlayerHand(playerHand);
           setLastPlayed(playerHand.getHand().getCards());
+          dispatch({ type: 'NEXT_TURN'});
           return true;
         }
       }
@@ -43,6 +51,7 @@ const Board: React.FunctionComponent<IBoard> = ({playerHands}) => {
   <section>
     <div className="last-played">
       <h3>Last Played:</h3>
+      <h4>Turn: {turn}</h4>
       {
         lastPlayed.length === 0 ? '' : <Cards cards={lastPlayed} />
       }
@@ -58,4 +67,8 @@ const Board: React.FunctionComponent<IBoard> = ({playerHands}) => {
   </section>)
 }
 
-export default Board;
+function mapStateToProps(state: any){
+  return state.trickReducer;
+}
+
+export default connect(mapStateToProps)(Board);
