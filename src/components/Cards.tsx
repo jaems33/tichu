@@ -7,7 +7,7 @@ interface ICards {
 }
 
 interface ICallback {
-  callback: Function;
+  callback?: Function;
 }
 
 const Cards: React.FunctionComponent<ICards & ICallback> = ({cards}) => {

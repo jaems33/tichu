@@ -4,12 +4,12 @@ body {
 }
 
 .card {
-  width: 100px;
-  height: 140px;
+  width: 60px;
+  height: 100px;
   border: 2px solid #FFF;
   background-color: #FFF;
   border-radius: 10px;
-  padding: 20px;
+  padding: 10px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -61,4 +61,10 @@ body {
   &:hover {
     cursor: pointer;
   }
+}
+
+.last-played {
+  position: fixed;
+  width: 300px;
+  right: 0;
 }

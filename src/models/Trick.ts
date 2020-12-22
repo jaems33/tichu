@@ -9,13 +9,6 @@ class Trick {
   constructor(){
     this.playedHands = [];
     this.handType = null;
-    // this.addPlayerHand = this.addPlayerHand.bind(this);
-    // this.getMostRecentPlayedHand = this.getMostRecentPlayedHand.bind(this);
-    // this.populateHandType = this.populateHandType.bind(this);
-    // this.getHandType = this.getHandType.bind(this);
-    // this.isEmpty = this.isEmpty.bind(this);
-    // this.getLastHandPlayed = this.getLastHandPlayed.bind(this);
-
   }
   addPlayerHand(playerHand: PlayerHand){
     this.playedHands.push(playerHand);
