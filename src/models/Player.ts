@@ -11,4 +11,7 @@ export default class Player {
   getName(){
     return this.name;
   }
+  getId(){
+    return this.id;
+  }
 }

@@ -1,33 +1,53 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import Deck from '../models/Deck';
 import Team from '../models/Team';
 import Player from '../models/Player';
 import PlayerHand from '../models/PlayerHand';
 import Board from '../components/Board';
+import {MAHJONG_VALUE} from '../utilities/constants'
 
-const Game: React.FunctionComponent<any> = ({players}) => {
-  
-  let teams = [new Team(), new Team()];
-  teams[0].addPlayer(players[0]);
-  teams[0].addPlayer(players[1]);
+import {connect} from 'react-redux';
+import {updateCurrentTurn, updatePlayers} from '../redux/actions';
 
-  teams[1].addPlayer(players[2]);
-  teams[1].addPlayer(players[3]);
+const Game: React.FunctionComponent<any> = (props) => {
 
-  const playerHands: Array<PlayerHand> = players.map((player: Player) => {
-    return new PlayerHand(player);
-  })
+  const playerHands = props.playerHands;
 
-  const deck = new Deck();
-  dealHands(playerHands, deck);
-  
-  for (let hand of playerHands){
-    hand.sortHand();
+  const [loaded, setLoaded] = useState(false);
+
+  useEffect( () => {
+    const deck = new Deck();
+    dealHands(playerHands, deck);
+    for (let hand of playerHands){
+      hand.sortHand();
+    }
+    props.dispatch(updatePlayers(playerHands.map((player: PlayerHand) => player.getPlayer().getId())));
+    const playerWhoGoesFirst = whoHasMahjong(playerHands);
+    if (playerWhoGoesFirst != null){
+      for (let i = 0; i < playerHands.length; ++i){
+        if (playerHands[i].getPlayer().getId() === playerWhoGoesFirst){
+          props.dispatch(updateCurrentTurn(playerWhoGoesFirst, i));
+          break;
+        }
+      }
+    }
+    console.log("Player hands", playerHands);
+    setLoaded(true);
+  }, []);
+
+  // Start the first trick with who has the mahjong card
+
+  return(<div>{ loaded === true ? <Board playerHands={playerHands} /> : ''}</div>)
+}
+
+function whoHasMahjong(playerHands: Array<PlayerHand>){
+  for (let playerHand of playerHands){
+    const cards = playerHand.getHand().getCards();
+    for (let card of cards){
+      if (card.value === MAHJONG_VALUE) return playerHand.getPlayer().getId();
+    }
   }
-
-  return(
-    <Board playerHands={playerHands} />
-  )
+  return null;
 }
 
 function dealHands(playerHands: Array<PlayerHand>, deck: Deck){
@@ -43,4 +63,11 @@ function dealHands(playerHands: Array<PlayerHand>, deck: Deck){
   }
 }
 
-export default Game;
+function mapStateToProps(state: any, props: any){
+  return {
+    state: state,
+  ...props 
+  }
+}
+
+export default connect(mapStateToProps)(Game);

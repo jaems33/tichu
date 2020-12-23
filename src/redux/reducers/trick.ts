@@ -1,4 +1,5 @@
-const NEXT_TURN = "NEXT_TURN";
+export const UPDATE_CURRENT_TURN = "UPDATE_CURRENT_TURN";
+export const UPDATE_PLAYERS = "UPDATE_PLAYERS";
 
 export interface Action {
   type: string;
@@ -6,19 +7,44 @@ export interface Action {
 }
 
 export interface Payload {
-  
+  playerId?: String;
+  playerTurnIndex?: number;
+  players?: Array<String>;
 }
 
 const defaultState = {
-  turn: 0
+  turn: -1,
+  playersLeft: [],
+  currentTurn: {
+    playerTurnIndex: null,
+    playerId: null
+  }
 }
 
 function trickReducer(state = defaultState, action: Action){
   switch(action.type) {
-    case NEXT_TURN: {
-      return {
-        turn: state.turn + 1
+    case UPDATE_CURRENT_TURN: {
+      let {playerId, playerTurnIndex} = action.payload;
+      if (playerId != null && playerTurnIndex != null){
+        return {
+          ...state,
+          currentTurn: {
+            playerId,
+            playerTurnIndex
+          }
+        }
       }
+      return state;
+    }
+    case UPDATE_PLAYERS: {
+      let {players} = action.payload;
+      if (players != null){
+        return {
+          ...state,
+          players
+        }
+      }
+      return state;
     }
     default: {
       return state;

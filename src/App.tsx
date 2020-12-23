@@ -1,6 +1,6 @@
 import React from 'react';
 import './App.scss';
-import Game from './pages/Game';
+import GameController from './pages/GameController';
 import Player from './models/Player';
 import { Provider } from 'react-redux';
 import store from './redux/store';
@@ -12,7 +12,7 @@ function App() {
   return (
     <div className="App">
       <Provider store={store}>
-        <Game players={players} />
+        <GameController players={players} />
       </Provider>
     </div>
   );

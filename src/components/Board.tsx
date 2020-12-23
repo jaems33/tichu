@@ -7,6 +7,7 @@ import ICard from '../interfaces/Card';
 import Cards from '../components/Cards';
 
 import {connect} from 'react-redux';
+import {updateCurrentTurn} from '../redux/actions'
 
 
 interface IBoard {
@@ -15,12 +16,19 @@ interface IBoard {
 
 const trick = new Trick();
 
-const Board: React.FunctionComponent<IBoard> = ({playerHands, ...props}) => {
+const Board: React.FunctionComponent<any> = (props: any) => {
 
-  console.log('Props:', props);
-  const {turn, dispatch} = props as any;
+  console.log('Board Props:', props);
+  const playerHands = props.playerHands;
+
+  //const 
 
   const [lastPlayed, setLastPlayed] = useState([] as ICard[]);
+
+  function nextTurn(){
+    // Increment turn counter
+    //dispatch(updateCurrentTurn());
+  }
 
   const addHandToTrick = (playerHand: PlayerHand) => {
     const cards = playerHand.getHand().getCards();
@@ -28,7 +36,7 @@ const Board: React.FunctionComponent<IBoard> = ({playerHands, ...props}) => {
     if (trick.isEmpty() && Validity.checkFirstMove(cards)){
       trick.addPlayerHand(playerHand);
       setLastPlayed(playerHand.getHand().getCards());
-      dispatch({ type: 'NEXT_TURN'});
+      nextTurn();
       return true;
     } else {
       const handType = trick.getHandType();
@@ -39,7 +47,7 @@ const Board: React.FunctionComponent<IBoard> = ({playerHands, ...props}) => {
         if (lastCardsPlayed != null && Validity.isGreaterThan(cards, lastCardsPlayed, handType)){
           trick.addPlayerHand(playerHand);
           setLastPlayed(playerHand.getHand().getCards());
-          dispatch({ type: 'NEXT_TURN'});
+          nextTurn();
           return true;
         }
       }
@@ -51,7 +59,6 @@ const Board: React.FunctionComponent<IBoard> = ({playerHands, ...props}) => {
   <section>
     <div className="last-played">
       <h3>Last Played:</h3>
-      <h4>Turn: {turn}</h4>
       {
         lastPlayed.length === 0 ? '' : <Cards cards={lastPlayed} />
       }
@@ -67,8 +74,11 @@ const Board: React.FunctionComponent<IBoard> = ({playerHands, ...props}) => {
   </section>)
 }
 
-function mapStateToProps(state: any){
-  return state.trickReducer;
+function mapStateToProps(state: any, ownProps: any){
+  return {
+    state,
+    ...ownProps
+  }
 }
 
 export default connect(mapStateToProps)(Board);
